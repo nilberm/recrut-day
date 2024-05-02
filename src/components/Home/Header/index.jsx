@@ -6,8 +6,12 @@ export default function Header() {
       <h1>Cats List</h1>
 
       <div className="buttons">
-        <button type="button" className="addCat"></button>
-        <button type="button" className="user"></button>
+        <button type="button" className="addCat">
+          + cat
+        </button>
+        <button type="button" className="user">
+          user
+        </button>
       </div>
     </HeaderComponent>
   );
