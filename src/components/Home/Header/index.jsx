@@ -1,5 +1,8 @@
 import { HeaderComponent } from "./style";
 
+
+
+
 export default function Header() {
   return (
     <HeaderComponent>
@@ -7,10 +10,10 @@ export default function Header() {
 
       <div className="buttons">
         <button type="button" className="addCat">
-          + cat
+          + Add a Cat
         </button>
         <button type="button" className="user">
-          user
+          User
         </button>
       </div>
     </HeaderComponent>
