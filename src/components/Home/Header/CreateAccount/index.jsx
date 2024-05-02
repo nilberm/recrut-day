@@ -26,6 +26,7 @@ export default function CreateAccount(props) {
       toast.success("Account created successfully");
 
       props?.onClose();
+      props?.checkUser();
       reset();
     });
   };
