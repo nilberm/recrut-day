@@ -13,14 +13,10 @@ export default function Header() {
 
       <div className="buttons">
         <button type="button" className="addCat">
-          + cat
+          + Add a Cat
         </button>
-        <button
-          type="button"
-          className="user"
-          onClick={() => setCreateAccountVisible(true)}
-        >
-          user
+        <button type="button" className="user">
+          User
         </button>
       </div>
 
