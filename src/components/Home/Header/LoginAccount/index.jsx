@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form";
-import { Container } from "./style";
-
 import { api } from "../../../../services/api";
+import { Container } from "./style";
 import { toast } from "react-toastify";
 
-export default function CreateAccount(props) {
+export default function LoginAccount(props) {
   const {
     register,
     handleSubmit,
@@ -13,7 +12,7 @@ export default function CreateAccount(props) {
   } = useForm();
 
   const onSubmit = async (data) => {
-    await api.post("auth/signup", data).then((response) => {
+    await api.post("auth/signin", data).then((response) => {
       localStorage.setItem(
         "accessToken",
         response.data?.data?.AuthenticationResult?.AccessToken
@@ -23,7 +22,7 @@ export default function CreateAccount(props) {
         JSON.stringify(response.data?.data?.UserAttributes)
       );
 
-      toast.success("Account created successfully");
+      toast.success("Account logged in successfully");
 
       props?.onClose();
       props?.setIsUserLogin(true);
@@ -34,10 +33,6 @@ export default function CreateAccount(props) {
   return (
     <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="inputAndLabel">
-          <label>Name</label>
-          <input {...register("name", { required: true })} />
-        </div>
         <div className="inputAndLabel">
           <label>Email</label>
           <input {...register("email", { required: true })} />

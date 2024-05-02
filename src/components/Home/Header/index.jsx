@@ -5,17 +5,21 @@ import { Dialog } from "primereact/dialog";
 import CreateAccount from "./CreateAccount";
 import { api } from "../../../services/api";
 import { toast } from "react-toastify";
+import LoginAccount from "./LoginAccount";
 
 export default function Header() {
   const [createAccountVisible, setCreateAccountVisible] = useState(false);
+  const [loginAccountVisible, setLoginAccountVisible] = useState(false);
 
   const [isUserLogin, setIsUserLogin] = useState(false);
+  const [user, setUser] = useState({});
 
   const checkUser = async () => {
     await api
       .get("me")
       .then(() => {
         setIsUserLogin(true);
+        setUser(response.data?.data?.UserAttributes);
       })
       .catch(() => {
         setIsUserLogin(false);
@@ -42,9 +46,11 @@ export default function Header() {
           + Add a Cat
         </button>
         {isUserLogin ? (
-          <button type="button" className="user" onClick={() => logout()}>
-            Logout
-          </button>
+          <>
+            <button type="button" className="user" onClick={() => logout()}>
+              Logout
+            </button>
+          </>
         ) : (
           <>
             <button
@@ -54,7 +60,11 @@ export default function Header() {
             >
               Create Account
             </button>
-            <button type="button" className="user">
+            <button
+              type="button"
+              className="user"
+              onClick={() => setLoginAccountVisible(true)}
+            >
               Login
             </button>
           </>
@@ -62,7 +72,7 @@ export default function Header() {
       </div>
 
       <Dialog
-        header="Create Account"
+        header={<h3>Create Account</h3>}
         visible={createAccountVisible}
         style={{
           width: "50vw",
@@ -70,13 +80,34 @@ export default function Header() {
           padding: "1rem",
           borderRadius: "10px",
           boxShadow: "0px 0px 10px #7a7a7a",
+          backgroundColor: "white",
         }}
         className="modal"
         onHide={() => setCreateAccountVisible(false)}
       >
         <CreateAccount
           onClose={() => setCreateAccountVisible(false)}
-          checkUser={checkUser}
+          setIsUserLogin={setIsUserLogin}
+        />
+      </Dialog>
+
+      <Dialog
+        header={<h3>Login Account</h3>}
+        visible={loginAccountVisible}
+        style={{
+          width: "50vw",
+          border: "1px solid #7a7a7a",
+          padding: "1rem",
+          borderRadius: "10px",
+          boxShadow: "0px 0px 10px #7a7a7a",
+          backgroundColor: "white",
+        }}
+        className="modal"
+        onHide={() => setLoginAccountVisible(false)}
+      >
+        <LoginAccount
+          onClose={() => setLoginAccountVisible(false)}
+          setIsUserLogin={setIsUserLogin}
         />
       </Dialog>
     </HeaderComponent>
