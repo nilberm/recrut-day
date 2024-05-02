@@ -37,7 +37,7 @@ export default function Header() {
         className="modal"
         onHide={() => setCreateAccountVisible(false)}
       >
-        <CreateAccount />
+        <CreateAccount onClose={() => setCreateAccountVisible(false)} />
       </Dialog>
     </HeaderComponent>
   );

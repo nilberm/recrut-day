@@ -2,19 +2,31 @@ import { useForm } from "react-hook-form";
 import { Container } from "./style";
 
 import { api } from "../../../../services/api";
+import { toast } from "react-toastify";
 
-export default function CreateAccount() {
+export default function CreateAccount(props) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
-
     await api.post("auth/signup", data).then((response) => {
-      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem(
+        "accessToken",
+        response.data?.data?.AuthenticationResult?.AccessToken
+      );
+      localStorage.setItem(
+        "UserAttributes",
+        response.data?.data?.UserAttributes
+      );
+
+      toast.success("Account created successfully");
+
+      props?.onClose();
+      reset();
     });
   };
 
