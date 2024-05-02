@@ -21,6 +21,10 @@ export const HeaderComponent = styled.header`
   .buttons {
     display: flex;
     gap: 10px;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
   }
   .addCat {
     padding: 0 20px;
